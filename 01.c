@@ -1,48 +1,21 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-#define MAXSIZE 10
-#define NotFound 0
-typedef int ElementType;
-
-typedef int Position;
-typedef struct LNode *List;
-struct LNode {
-    ElementType Data[MAXSIZE];
-    Position Last; /* 保存线性表中最后一个元素的位置 */
-};
-
-List ReadInput(); /* 裁判实现，细节不表。元素从下标1开始存储 */
-Position BinarySearch( List L, ElementType X );
-
-int main()
+int main(void)
 {
-    List L;
-    ElementType X;
-    Position P;
+    int K;
+    scanf("%d", &K);
+    int a[K];
+    for (int i = 0; i < K; ++i)
+        scanf("%d", &a[i]);
+    int subSum = 0, maxSum = 0;
 
-    L = ReadInput();
-    scanf("%d", &X);
-    P = BinarySearch( L, X );
-    printf("%d\n", P);
-
-    return 0;
-}
-
-Position BinarySearch( List L, ElementType X )
-{
-    Position left = 1, right = L->Last, mid = (left + right) / 2;
-    while (left <= right) {
-        if (L->Data[mid] < X) {
-            left = mid + 1;
-        }
-        else if (L->Data[mid] > X) {
-            right = mid - 1;
-        }
-        else {
-            return mid;
-        }
-        mid = (left + right) / 2;
+    for (int i = 0; i < K; ++i) {
+        subSum += a[i];
+        if(subSum < 0)
+            subSum = 0;
+        if (subSum > maxSum)
+            maxSum = subSum;
     }
-    return NotFound;
+    printf("%d\n", maxSum);
+    return 0;
 }
