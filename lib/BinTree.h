@@ -1,5 +1,5 @@
 #ifndef _BINTREE_H_
-#define _BINTREE_H
+#define _BINTREE_H_
 
 typedef int ElementType;
 typedef struct BinTreeNode *PtrToBinNode;
