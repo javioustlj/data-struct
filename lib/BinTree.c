@@ -1,9 +1,65 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Queue.h"
+#include "Stack.h"
 #include "BinTree.h"
 
+void inOrderTraversal(BinTree bt)
+{
+    BinTree tmp;
+    Stack s = createStack();
+    while (bt || !isStackEmpty(s)) {
+        while(bt) {
+            push(s, bt);
+            bt = bt->left;
+        }
+        if (!isStackEmpty(s)) {
+            bt = pop(s);
+            print("%d\n", tmp->element);
+            bt = bt->right;
+        }
+    }
+}
 
+void preOrderTraversal(BinTree bt)
+{
+    BinTree tmp;
+    Stack s = createStack();
+    while (bt || !isStackEmpty(s)) {
+        while(bt) {
+            push(s, bt);
+            print("%d\n", tmp->element);
+            bt = bt->left;
+        }
+        if (!isStackEmpty(s)) {
+            bt = pop(s);
+            bt = bt->right;
+        }
+    }
+}
+
+void postOrderTraversal(BinTree bt)
+{
+    BinTree tmp, preTree = NULL;
+    Stack s = createStack();
+    while (bt || !isStackEmpty(s)) {
+        while(bt) {
+            push(s, bt);
+            bt = bt->left;
+        }
+        if (!isStackEmpty(s)) {
+            bt = pop(s);
+            if (preTree == bt->right || bt->right == NULL) {
+                printf("%d\n", preTree->element);
+                preTree = bt;
+            }
+            else {
+                push(s, bt);
+            }
+            bt = bt->right;
+        }
+    }
+}
 
 void levelOrderTraversal(BinTree bt)
 {
